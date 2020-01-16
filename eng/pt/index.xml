@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Pts on English</title>
+    <link>/eng/pt/</link>
+    <description>Recent content in Pts on English</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jun 2019 01:30:42 -0300</lastBuildDate>
+    
+	<atom:link href="/eng/pt/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dissertacao</title>
+      <link>/eng/pt/publication/dissertacao/</link>
+      <pubDate>Wed, 05 Jun 2019 01:30:42 -0300</pubDate>
+      
+      <guid>/eng/pt/publication/dissertacao/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

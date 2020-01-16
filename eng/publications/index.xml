@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications on English</title>
+    <link>/eng/publications/</link>
+    <description>Recent content in Publications on English</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 05 Jun 2019 01:24:17 -0300</lastBuildDate>
+    
+	<atom:link href="/eng/publications/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>2013 12 20 O Processo Decisório Na Assembleia Nacional Constituinte 1987 88 a Escolha Do Sistema De Governo</title>
+      <link>/eng/publications/2013-12-20-o-processo-decis%C3%B3rio-na-assembleia-nacional-constituinte-1987-88-a-escolha-do-sistema-de-governo/</link>
+      <pubDate>Wed, 05 Jun 2019 01:24:17 -0300</pubDate>
+      
+      <guid>/eng/publications/2013-12-20-o-processo-decis%C3%B3rio-na-assembleia-nacional-constituinte-1987-88-a-escolha-do-sistema-de-governo/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

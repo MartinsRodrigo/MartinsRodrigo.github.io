@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Publications on Rodrigo Martins</title>
+    <link>/pt/publication/</link>
+    <description>Recent content in Publications on Rodrigo Martins</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt</language>
+    <lastBuildDate>Mon, 20 Aug 2018 21:25:15 -0300</lastBuildDate>
+    
+	<atom:link href="/pt/publication/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Pontos de Divergência: Supremo Tribunal Federal e comportamento judicial</title>
+      <link>/pt/publication/tese/</link>
+      <pubDate>Mon, 20 Aug 2018 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/publication/tese/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>O Processo Decisório na Assembleia Nacional Constituinte 1987-88: a Escolha do Sistema de Governo</title>
+      <link>/pt/publication/mestrado/</link>
+      <pubDate>Fri, 20 Dec 2013 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/publication/mestrado/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

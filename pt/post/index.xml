@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Rodrigo Martins</title>
+    <link>/pt/post/</link>
+    <description>Recent content in Posts on Rodrigo Martins</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt</language>
+    <lastBuildDate>Sat, 05 Jan 2019 21:25:15 -0300</lastBuildDate>
+    
+	<atom:link href="/pt/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Os discursos de posse presidenciais ao Congresso</title>
+      <link>/pt/post/discursos_posse/</link>
+      <pubDate>Sat, 05 Jan 2019 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/post/discursos_posse/</guid>
+      <description>A cerimônia de posse presidencial possui diversos ritos que marcam a transição de um governo a outro. Do passeio com o Rolls-Royce até a foto oficial no gabinete presidencial do novo presidente junto com sua equipe ministerial, um dos momentos mais aguardados é o discurso presidencial. Logo após jurar no Congresso Nacional “manter, defender e cumprir a Constituição, observar as leis, promover o bem geral do povo brasileiro, sustentar a união, a integridade e a independência do Brasil”, é feito o primeiro pronunciamento ao país como presidente empossado.</description>
+    </item>
+    
+  </channel>
+</rss>

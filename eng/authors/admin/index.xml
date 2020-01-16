@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>English</title>
+    <link>/eng/authors/admin/</link>
+    <description>Recent content on English</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="/eng/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/eng/authors/admin/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/eng/authors/admin/</guid>
+      <description>Pós-doutorando em Ciência Política na Universidade de Pernambuco, Rodrigo Martins é bacharel em Ciências Sociais, mestre e doutor em Ciência Política pela Universidade de São Paulo. Seus interesses de pesquisa incluem instituições políticas, comportamento judicial, processos constituintes, métodos e técnicas de pesquisa. Faz parte do JUDE (Judiciário e Democracia), grupo de pesquisa que tem por objetivo investigar o funcionamento de instituições judiciais e as consequências de suas decisões para a democracia.</description>
+    </item>
+    
+  </channel>
+</rss>

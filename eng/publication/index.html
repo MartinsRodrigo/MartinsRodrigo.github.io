@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en-us">
 <head>
 
   <meta charset="utf-8">
@@ -27,10 +27,12 @@
   
     
   
-  <meta name="description" content="Cientista Político">
+  <meta name="description" content="English">
 
   
-  <link rel="alternate" hreflang="pt" href="/404.html">
+  <link rel="alternate" hreflang="pt" href="/pt/publication/">
+  
+  <link rel="alternate" hreflang="en-us" href="/eng/publication/">
 
   
 
@@ -104,12 +106,15 @@
   
 
   
+  <link rel="alternate" href="/eng/publication/index.xml" type="application/rss+xml" title="English">
+  <link rel="feed" href="/eng/publication/index.xml" type="application/rss+xml" title="English">
+  
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/404.html">
+  <link rel="canonical" href="/eng/publication/">
 
   
   
@@ -120,11 +125,11 @@
   
   <meta property="twitter:card" content="summary">
   
-  <meta property="og:site_name" content="Rodrigo Martins">
-  <meta property="og:url" content="/404.html">
-  <meta property="og:title" content="404 Page not found | Rodrigo Martins">
-  <meta property="og:description" content="Cientista Político"><meta property="og:image" content="/img/icon-192.png">
-  <meta property="og:locale" content="pt">
+  <meta property="og:site_name" content="English">
+  <meta property="og:url" content="/eng/publication/">
+  <meta property="og:title" content="Publications | English">
+  <meta property="og:description" content="English"><meta property="og:image" content="/img/icon-192.png">
+  <meta property="og:locale" content="en-us">
   
   
   
@@ -133,7 +138,7 @@
 
   
 
-  <title>404 Page not found | Rodrigo Martins</title>
+  <title>Publications | English</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
@@ -174,7 +179,7 @@
   <div class="container">
 
     
-      <a class="navbar-brand" href="/">Rodrigo Martins</a>
+      <a class="navbar-brand" href="/eng">English</a>
       
       <button type="button" class="navbar-toggler" data-toggle="collapse"
               data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Alterar navegação">
@@ -213,75 +218,9 @@
         
 
         <li class="nav-item">
-          <a class="nav-link " href="/#about">
+          <a class="nav-link " href="/eng/#about">
             
-            <span>Início</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#featured">
-            
-            <span>Publicações</span>
-            
-          </a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#posts">
-            
-            <span>Posts</span>
+            <span>Home</span>
             
           </a>
         </li>
@@ -303,6 +242,22 @@
         
 
         
+        <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true">
+            <i class="fas fa-globe" aria-hidden="true"></i>
+            <span></span>
+          </a>
+          <ul class="dropdown-menu">
+            
+            <li class="dropdown-item my-0 py-0 mx-0 px-0">
+              <a href="/pt/publication/">
+                <span>Português</span>
+              </a>
+            </li>
+            
+          </ul>
+        </li>
+        
 
         
         <li class="nav-item">
@@ -316,25 +271,73 @@
   </div>
 </nav>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+    
+  
 <div class="universal-wrapper pt-3">
-
-  <h1>Page not found</h1>
-
-  
-  
-  <form class="d-flex align-items-center mb-3">
-    <input name="q" type="search" class="form-control" id="search-query" placeholder="Search..." autocomplete="off">
-  </form>
-  
+  <h1 itemprop="name">Publications</h1>
 
   
 
-  <p>Perhaps you were looking for one of these?</p>
+  
+</div>
 
-  
-  
-  
 
+
+<div class="universal-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+
+      
+
+      
+      
+
+      <div class="form-row mb-4">
+        <div class="col-auto">
+          <input type="search" class="filter-search" placeholder="Search..." autocapitalize="off"
+          autocomplete="off" autocorrect="off" role="textbox" spellcheck="false">
+        </div>
+        <div class="col-auto">
+          <select class="pub-filters pubtype-select form-control form-control-sm" data-filter-group="pubtype">
+            <option value="*">Tipo</option>
+            
+            
+          </select>
+        </div>
+        <div class="col-auto">
+          <select class="pub-filters form-control form-control-sm" data-filter-group="year">
+            <option value="*">Data</option>
+            
+            
+          </select>
+        </div>
+      </div>
+
+      <div id="container-publications">
+        
+      </div>
+
+    </div>
+  </div>
 </div>
 <div class="container">
   <footer class="site-footer">
@@ -427,7 +430,7 @@
     
     
     <script>
-      const search_index_filename = "/index.json";
+      const search_index_filename = "/eng/index.json";
       const i18n = {
         'placeholder': "Search...",
         'results': "results found",

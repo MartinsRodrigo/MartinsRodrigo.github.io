@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Authors on Rodrigo Martins</title>
+    <link>/pt/authors/</link>
+    <description>Recent content in Authors on Rodrigo Martins</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt</language>
+    <lastBuildDate>Sat, 05 Jan 2019 21:25:15 -0300</lastBuildDate>
+    
+	<atom:link href="/pt/authors/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/pt/authors/admin/</link>
+      <pubDate>Sat, 05 Jan 2019 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/authors/admin/</guid>
+      <description>Sou pesquisador de pós-doutorado no departamento de Ciência Política da Universidade Federal de Pernambuco, bacharel em Ciências Sociais, mestre e doutor em Ciência Política pela Universidade de São Paulo, com período de Doutorado Sanduíche no departamento de metodologia da London School of Economics. Integro o JUDE (Judiciário e Democracia), grupo de pesquisa que tem por objetivo investigar as instituições judiciais e as consequências de seus funcionamentos para a democracia.
+No mestrado pesquisei a escolha do sistema de governo durante o processo de elaboração constitucional que resultou na Constituição de 1988, procurando investigar por que o presidencialismo foi mantido mesmo quando a tendência do período era a implementação do parlamentarismo.</description>
+    </item>
+    
+  </channel>
+</rss>

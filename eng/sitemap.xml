@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/eng/authors/admin/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/authors/admin/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/authors/admin/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/authors/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/authors/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/authors/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/categories/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/post/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/post/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/publication_types/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/publication_types/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/publication_types/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/publication/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/publication/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/publication/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/talk/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/talk/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/talk/"
+                />
+  </url>
+  
+  <url>
+    <loc>/eng/tags/</loc>
+    <priority>0</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="pt"
+                href="/pt/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="eng"
+                href="/eng/tags/"
+                />
+  </url>
+  
+</urlset>

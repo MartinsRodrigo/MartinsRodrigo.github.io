@@ -1,0 +1,199 @@
+---
+# Documentation: https://sourcethemes.com/academic/docs/managing-content/
+title: "Os discursos de posse presidenciais ao Congresso"
+subtitle: "Uma breve análise textual quantitativa"
+summary: ""
+authors: ["admin"]
+tags: []
+categories: []
+date: 2019-01-05T21:25:15-03:00
+featured: true
+draft: false
+output:
+  fig_caption: TRUE
+# Featured image
+# To use, add an image named `featured.jpg/png` to your page's folder.
+# Focal points: Smart, Center, TopLeft, Top, TopRight, Left, Right, BottomLeft, Bottom, #BottomRight.
+image:
+  caption: ""
+  focal_point: "Center"
+  preview_only: false
+# Projects (optional).
+#   Associate this post with one or more of your projects.
+#   Simply enter your project's folder or file name without extension.
+#   E.g. `projects = ["internal-project"]` references `content/project/deep-learning/index.md`.
+#   Otherwise, set `projects = []`.
+projects: []
+---
+
+```{r, include = FALSE}
+packages <- c("tidyverse", "quanteda", "tidytext", "ggthemes", "ggpubr", "plotly")
+
+pkgTest <- function(x)
+{
+  if (!require(x,character.only = TRUE))
+  {
+    install.packages(x,dep=TRUE)
+    if(!require(x,character.only = TRUE)) stop("Package not found")
+  }
+}
+
+
+lapply(packages, pkgTest)
+
+devtools::install_github("kbenoit/readtext") 
+
+library(readtext)
+library(drlib)
+library(captioner)
+
+figure_nums <- captioner::captioner(prefix = "Figura ")
+
+myCorpus <- corpus(readtext("C:\\Users\\Rodrigo\\Desktop\\Discursos\\Congresso\\*.txt")) 
+  
+
+sumario <- summary(myCorpus) 
+
+frases <- ggplot(sumario, aes(reorder(Text, -Sentences), Sentences)) +
+geom_col() +
+theme_minimal() +
+ggtitle("Frases") +
+xlab("Discursos") +
+ylab("Número de frases") +
+scale_x_discrete(labels = c("Collor", "Lula II", "Dilma II", "FHC II",
+                    "Dilma I", "FHC I", "Lula I", "Bolsonaro")) +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+palavras <- ggplot(sumario, aes(reorder(Text, -Tokens), Tokens)) +
+geom_col() +
+theme_minimal() +
+ggtitle("Palavras") +
+xlab("Discursos") +
+ylab("Número de palavras") +
+scale_x_discrete(labels = c("Collor", "Dilma II", "Lula II", "Lula I",
+                    "Dilma I", "FHC I", "FHC II", "Bolsonaro")) +
+  theme(plot.title = element_text(hjust = 0.5))
+  
+```
+
+A cerimônia de posse presidencial possui diversos ritos que marcam a transição de um governo a outro. Do passeio com o Rolls-Royce até a foto oficial no gabinete presidencial do novo presidente junto com sua equipe ministerial, um dos momentos mais aguardados é o discurso presidencial. Logo após jurar no Congresso Nacional "manter, defender e cumprir a Constituição, observar as leis, promover o bem geral do povo brasileiro, sustentar a união, a integridade e a independência do Brasil", é feito o primeiro pronunciamento ao país como presidente empossado.
+
+Reunimos aqui os discursos que todos os presidentes eleitos pós-1988 proferiram em sua posse diante dos Senadores e Deputados. É frequente que o discurso feito no Parlatório, mais informal e diante dos presentes na Praça dos Três Poderes, tenha mais repercussão. No entanto pela dificuldade de encontrar todos eles (de Collor, FHC I e II, para ser mais específico), nos ateremos aos discursos que são mais longos e costumam expor compromissos, objetivos e metas a serem cumpridos ao longo do novo mandato. 
+
+Na figura 1 observamos duas formas diferentes de se medir o tamanho dos discursos, pelo número de palavras e número de frases. Nos dois gráficos se destacam os discursos de Collor e Bolsonaro, a primeiro pela sua longa extensão (6665 palavras e 261 frases) e o segundo pela sua brevidade (1304 palavras e 49 frases). Os discursos de FHC, Lula e Dilma não diferem tanto, principalmente quando observamos o número de frases, mas o tucano tende a discursar menos que os presidentes PTistas. É curioso que a tendência é que os discursos de posse de segundo mandato tendem a serem maiores. Talvez seja pelo fato de não terem que apenas fazerem pactos e propostas para o governo futuro mas também fazer um balanço do governo anterior e de seu desempenho.
+
+
+  
+```{r, echo = FALSE,  fig.dim = c(10,4)}  
+
+
+
+plotly_palavras <- ggplotly(palavras, tooltip = "Tokens")
+plotly_palavras$x$data[[1]]$text <- plotly_palavras$x$data[[1]]$text %>% 
+                                    gsub("Tokens", "Palavras", .)
+
+                
+plotly_frases <- ggplotly(frases, tooltip = "Sentences")
+plotly_frases$x$data[[1]]$text <- plotly_frases$x$data[[1]]$text %>% 
+                                    gsub("Sentences", "Frases", .)
+                                    
+figura1_plotly <- subplot(plotly_palavras, plotly_frases) %>% 
+layout(title = "Extensão dos discursos em número de palavras e frases")
+
+```
+
+
+```{r, echo = FALSE,  fig.dim = c(9,4)}  
+
+
+# features <-  dfm(myCorpus, 
+#                  remove = stopwords(language = 'portuguese', source = "stopwords-iso"), 
+#                  remove_punct = TRUE) %>%
+#   dfm_remove(stopwords("portuguese", "snowball")) 
+# 
+#   tidy(features) %>%
+#   group_by(document) %>%
+#   top_n(19) %>%
+#   ungroup() %>%
+#   ggplot(aes(reorder_within(term, count, document), count,
+#              fill = document
+#   )) +
+#   geom_col(alpha = 0.8, show.legend = FALSE) +
+#   scale_x_reordered() +
+#   coord_flip() +
+#   facet_wrap(~document, ncol = 4, scales = "free") +
+#   scale_y_continuous(expand = c(0, 0))
+#   
+#   
+#   features <-  dfm(myCorpus, 
+#                    remove = stopwords(language = 'portuguese', source = "stopwords-iso"), 
+#                    remove_punct = TRUE) %>%
+#     dfm_remove(stopwords("portuguese", "snowball")) %>%
+#    dfm_trim(min_termfreq = 4, max_docfreq = 7)
+# 
+#   tidy(features) %>%
+#   bind_tf_idf(document, term, count) %>%
+#   arrange(desc(tf_idf)) %>%
+#   mutate(term = factor(term, levels = rev(unique(term)))) %>%
+#   group_by(document) %>%
+#   top_n(12, tf_idf) %>% 
+#   ungroup() %>%
+#   mutate(term = reorder(term, tf_idf)) %>%
+#   # filter(count > 1) %>%
+#   ggplot(aes(term, tf_idf, fill = document)) +
+#   geom_col(show.legend = FALSE) +
+#   labs(x = NULL, y = "tf-idf") +
+#   facet_wrap(~document, ncol = 4, scales = "free") +
+#   coord_flip()
+# 
+# 
+# features <-  dfm(myCorpus, 
+#                  remove = stopwords('portuguese', "stopwords-iso"), 
+#                  remove_punct = TRUE) %>%
+#   dfm_remove(stopwords("portuguese", "snowball")) 
+# 
+# textplot_wordcloud(features, comparison = TRUE, min_count = 1)
+# 
+# simil <- textstat_simil_old(features)
+# 
+# lexstat <- textstat_lexdiv(features, "R")
+# lexstat <- mutate(lexstat, 
+#                   document = factor(document,
+#                                     levels = lexstat$document[order(lexstat[["R"]])]))
+# 
+# ggplot(as.data.frame(lexstat), aes(R, document)) +
+#   geom_point()
+
+# 
+# 
+# 
+# 
+# 
+# 
+# 
+# ggsave("C:\\Users\\Rodrigo\\Desktop\\Discursos\\tf_idf.png", 
+#        plot_discursos, device = "png", width = 30, height = 120, unit = "cm")
+# 
+# 
+# 
+# 
+# 
+# 
+# features <-  dfm(myCorpus, 
+#                  remove = stopwords('portuguese', "stopwords-iso"), 
+#                  remove_punct = TRUE) %>%
+#   dfm_remove(stopwords("portuguese", "snowball")) %>%
+#   dfm_trim(max_docfreq = 7) %>%
+#   dfm_tfidf("prop")
+# 
+# ca <- textmodel_ca(features, nd = 2)
+# ggplot(as.data.frame(ca$rowcoord), aes(Dim1, Dim2, label = rownames(ca$rowcoord))) +
+#   geom_point() +
+#   geom_text(aes(label = rownames(ca$rowcoord)))
+
+
+
+```
+
+

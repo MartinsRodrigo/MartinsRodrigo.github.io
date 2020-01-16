@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rodrigo Martins</title>
+    <link>/pt/authors/admin/</link>
+    <description>Recent content on Rodrigo Martins</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>pt</language>
+    <lastBuildDate>Sat, 05 Jan 2019 21:25:15 -0300</lastBuildDate>
+    
+	<atom:link href="/pt/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Os discursos de posse presidenciais ao Congresso</title>
+      <link>/pt/post/discursos_posse/</link>
+      <pubDate>Sat, 05 Jan 2019 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/post/discursos_posse/</guid>
+      <description>A cerimônia de posse presidencial possui diversos ritos que marcam a transição de um governo a outro. Do passeio com o Rolls-Royce até a foto oficial no gabinete presidencial do novo presidente junto com sua equipe ministerial, um dos momentos mais aguardados é o discurso presidencial. Logo após jurar no Congresso Nacional “manter, defender e cumprir a Constituição, observar as leis, promover o bem geral do povo brasileiro, sustentar a união, a integridade e a independência do Brasil”, é feito o primeiro pronunciamento ao país como presidente empossado.</description>
+    </item>
+    
+    <item>
+      <title>Pontos de Divergência: Supremo Tribunal Federal e comportamento judicial</title>
+      <link>/pt/publication/tese/</link>
+      <pubDate>Mon, 20 Aug 2018 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/publication/tese/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>O Processo Decisório na Assembleia Nacional Constituinte 1987-88: a Escolha do Sistema de Governo</title>
+      <link>/pt/publication/mestrado/</link>
+      <pubDate>Fri, 20 Dec 2013 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/publication/mestrado/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>/pt/authors/admin/</link>
+      <pubDate>Sat, 05 Jan 2019 21:25:15 -0300</pubDate>
+      
+      <guid>/pt/authors/admin/</guid>
+      <description>Sou pesquisador de pós-doutorado no departamento de Ciência Política da Universidade Federal de Pernambuco, bacharel em Ciências Sociais, mestre e doutor em Ciência Política pela Universidade de São Paulo, com período de Doutorado Sanduíche no departamento de metodologia da London School of Economics. Integro o JUDE (Judiciário e Democracia), grupo de pesquisa que tem por objetivo investigar as instituições judiciais e as consequências de seus funcionamentos para a democracia.
+No mestrado pesquisei a escolha do sistema de governo durante o processo de elaboração constitucional que resultou na Constituição de 1988, procurando investigar por que o presidencialismo foi mantido mesmo quando a tendência do período era a implementação do parlamentarismo.</description>
+    </item>
+    
+  </channel>
+</rss>
