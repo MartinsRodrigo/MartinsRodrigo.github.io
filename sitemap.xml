@@ -1,16 +1,59 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-	
-	<sitemap>
-	   	<loc>/pt/sitemap.xml</loc>
-		
-	   	<lastmod>2019-01-05T21:25:15-03:00</lastmod>
-		
-	</sitemap>
-	
-	<sitemap>
-	   	<loc>/eng/sitemap.xml</loc>
-		
-	</sitemap>
-	
-</sitemapindex>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://rodrigomartins.org/pt/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/electoral-justice/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/career-paths-stf/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/unga-sponsorship/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/pontos-ideais/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/tese-stf/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/pt/publicacoes/mestrado-constituinte/</loc>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/electoral-justice/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/career-paths-stf/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/unga-sponsorship/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/ideal-points/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/stf-dissertation/</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://rodrigomartins.org/eng/publications/constituent-assembly-thesis/</loc>
+    <priority>0.6</priority>
+  </url>
+</urlset>
