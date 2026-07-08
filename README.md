@@ -1,28 +1,46 @@
 # rodrigomartins.org
 
-Site academico de Rodrigo Martins.
+Academic website for Rodrigo Martins, published with GitHub Pages.
 
-## Estrutura atual
+## Main Pages
 
-- `pt/index.html`: nova pagina inicial em portugues.
-- `css/modern.css`: estilos da nova versao.
-- `pt/publication/`, `pt/post/`, `eng/` e demais pastas: conteudo legado preservado como referencia e para manter URLs antigas funcionando.
-- `CNAME`: dominio customizado usado pelo GitHub Pages.
+- `pt/index.html`: Portuguese homepage.
+- `eng/index.html`: English homepage.
+- `pt/publicacoes/`: Portuguese publication summaries.
+- `eng/publications/`: English publication summaries.
+- `css/modern.css`: shared site styles.
+- `img/rodrigo-martins-current.jpg`: profile photo used in the homepage and social previews.
 
-## Rodar localmente
+Legacy folders from the previous Hugo/Academic version are still present to preserve older URLs while the rebuilt site is stabilized.
 
-Na raiz do projeto:
+## Local Preview
+
+From the repository root:
 
 ```powershell
 py -m http.server 8080 --bind 127.0.0.1
 ```
 
-Depois acesse:
+Then open:
 
 ```text
 http://127.0.0.1:8080/pt/
+http://127.0.0.1:8080/eng/
 ```
 
-## Publicacao
+## Publishing
 
-O dominio `rodrigomartins.org` esta configurado para GitHub Pages. O GoDaddy deve ser mantido como registrador/DNS, enquanto o conteudo pode continuar sendo publicado pelo GitHub Pages.
+This repository is served by GitHub Pages from the `master` branch.
+
+The custom domain is configured through `CNAME`:
+
+```text
+rodrigomartins.org
+```
+
+The domain registrar/DNS provider should point the apex domain to GitHub Pages A records and `www` to `martinsrodrigo.github.io`.
+
+## Notes
+
+- `sitemap.xml` and `robots.txt` are maintained manually.
+- Local reference PDFs should stay outside Git; the `publicacoes/` folder is ignored.
