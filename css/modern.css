@@ -593,10 +593,12 @@ h3 {
   .profile {
     align-self: auto;
     justify-self: center;
+    margin-inline: auto;
     width: min(100%, 300px);
+    text-align: center;
   }
 
-  .profile img {
+  .hero .profile img {
     display: block;
     margin-inline: auto;
     width: min(100%, 220px);
