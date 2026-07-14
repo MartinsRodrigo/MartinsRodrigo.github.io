@@ -592,11 +592,13 @@ h3 {
 
   .profile {
     align-self: auto;
-    justify-self: start;
+    justify-self: center;
     width: min(100%, 300px);
   }
 
   .profile img {
+    display: block;
+    margin-inline: auto;
     width: min(100%, 220px);
   }
 
