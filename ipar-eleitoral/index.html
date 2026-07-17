@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPAR-Eleitoral | Painel Interativo de Engajamento Político Municipal</title>
+    <meta name="description" content="Explore os resultados do IPAR-Eleitoral (Índice de Participação Eleitoral) de 2022 dos municípios brasileiros. Descubra os preditores de participação e analise o paradoxo eleitoral brasileiro.">
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Leaflet CSS for Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <img src="logo_opar.png" alt="OPAR Logo" class="logo-img" style="height: 54px; width: auto; object-fit: contain;">
+                <div class="logo-text">
+                    <h1>IPAR-Eleitoral</h1>
+                    <p>Índice de Participação Eleitoral Municipal</p>
+                </div>
+            </div>
+            <div class="meta-info">
+                <span class="badge">TSE (2022/2024)</span>
+                <span class="badge">IBGE (Censo 22 / REGIC)</span>
+                <span class="badge">FIRJAN (IFDM 22)</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-box-container">
+                <div class="search-input-wrapper">
+                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" id="municipio-search" placeholder="Busque por um município brasileiro... (Ex: São Paulo, Tocantinópolis)" autocomplete="off">
+                    <button id="clear-search" class="clear-btn" style="display: none;">&times;</button>
+                </div>
+                <div id="autocomplete-list" class="autocomplete-suggestions"></div>
+            </div>
+        </section>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="spinner"></div>
+            <p>Carregando dados eleitorais...</p>
+        </div>
+
+        <!-- Dashboard Grid (Initially Hidden until a city is loaded, or shows default city) -->
+        <section id="dashboard-content" class="dashboard-grid" style="opacity: 0; transition: opacity 0.5s ease;">
+            
+            <!-- Column 1: Municipality Card & Diagnostics -->
+            <div class="dashboard-col col-info">
+                
+                <!-- Main Info Card -->
+                <div class="glass-card main-info-card">
+                    <div class="card-header">
+                        <span id="municipio-uf" class="uf-badge">SP</span>
+                        <h2 id="municipio-nome" class="muni-title">Nome do Município</h2>
+                        <p id="municipio-regiao" class="muni-regiao">Região Sudeste</p>
+                    </div>
+                    
+                    <div class="score-container">
+                        <div class="score-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle class="progress-ring__background" stroke="rgba(255,255,255,0.05)" stroke-width="8" fill="transparent" r="50" cx="60" cy="60"/>
+                                <circle id="score-ring-progress" class="progress-ring__circle" stroke="url(#gradient-accent)" stroke-width="8" stroke-dasharray="314.16" stroke-dashoffset="314.16" stroke-linecap="round" fill="transparent" r="50" cx="60" cy="60"/>
+                                <defs>
+                                    <linearGradient id="gradient-accent" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#818cf8" />
+                                        <stop offset="100%" stop-color="#06b6d4" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span id="ipar-value" class="score-number">--</span>
+                        </div>
+                        <div class="score-label-area">
+                            <span class="label">IPAR-Eleitoral</span>
+                            <span id="score-rating" class="rating-badge rating-high">Excelente</span>
+                        </div>
+                    </div>
+
+                    <div class="rankings-grid">
+                        <div class="rank-item">
+                            <span class="rank-title">Ranking Estadual</span>
+                            <span id="rank-estadual" class="rank-val">--</span>
+                        </div>
+                        <div class="rank-item">
+                            <span class="rank-title">Ranking Nacional</span>
+                            <span id="rank-nacional" class="rank-val">--</span>
+                        </div>
+                    </div>
+
+                    <div class="demographics-list">
+                        <div class="demo-row">
+                            <span class="demo-lbl">População Total:</span>
+                            <span id="muni-pop" class="demo-val">--</span>
+                        </div>
+                        <div class="demo-row">
+                            <span class="demo-lbl">Taxa de Urbanização:</span>
+                            <span id="muni-urb" class="demo-val">--</span>
+                        </div>
+                        <div class="demo-row">
+                            <span class="demo-lbl">Porte Populacional:</span>
+                            <span id="muni-porte" class="demo-val">--</span>
+                        </div>
+                        <div class="demo-row">
+                            <span class="demo-lbl">Hierarquia Urbana:</span>
+                            <span id="muni-regic" class="demo-val">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Regression Model Diagnostic Card -->
+                <div class="glass-card diagnostic-card">
+                    <h3>Ajuste Sócio-Demográfico</h3>
+                    <p class="section-desc">Comparação entre a participação real e a participação esperada para uma cidade com este perfil socioeconômico.</p>
+                    
+                    <div class="residual-display">
+                        <div class="residual-chart-area">
+                            <div class="comparison-bar-container">
+                                <div class="comp-bar-lbl">
+                                    <span>Esperado pelo Modelo</span>
+                                    <span id="val-esperado" class="comp-val">--</span>
+                                </div>
+                                <div class="comp-bar-bg"><div id="bar-esperado" class="comp-bar-fill expected"></div></div>
+                            </div>
+                            <div class="comparison-bar-container">
+                                <div class="comp-bar-lbl">
+                                    <span>Real Observado</span>
+                                    <span id="val-real" class="comp-val">--</span>
+                                </div>
+                                <div class="comp-bar-bg"><div id="bar-real" class="comp-bar-fill actual"></div></div>
+                            </div>
+                        </div>
+                        
+                        <div id="residual-alert" class="residual-alert alert-positive">
+                            <div class="alert-icon-wrapper">
+                                <svg id="alert-icon-up" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                <svg id="alert-icon-down" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                            </div>
+                            <div class="alert-content">
+                                <h4 id="residual-title">Engajamento acima do esperado</h4>
+                                <p id="residual-desc">O município participa X pontos acima do previsto por suas condições demográficas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FIRJAN Socioeconomic indicators -->
+                    <div class="firjan-block">
+                        <h4>Desenvolvimento Socioeconômico (IFDM 2022)</h4>
+                        <div class="firjan-metrics">
+                            <div class="firjan-metric">
+                                <span class="lbl">Educação</span>
+                                <span id="ifdm-e" class="val">--</span>
+                            </div>
+                            <div class="firjan-metric">
+                                <span class="lbl">Saúde</span>
+                                <span id="ifdm-s" class="val">--</span>
+                            </div>
+                            <div class="firjan-metric">
+                                <span class="lbl">Emprego & Renda</span>
+                                <span id="ifdm-emp" class="val">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Column 2: Charts and Spatial Map -->
+            <div class="dashboard-col col-viz">
+                
+                <!-- Radar Chart Card -->
+                <div class="glass-card chart-card">
+                    <h3>Os Três Pilares da Participação</h3>
+                    <p class="section-desc">Comparação dos percentuais do município em relação à média nacional de participação.</p>
+                    <div class="chart-wrapper radar-wrapper">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Brazil Map Card (UFs State baselines) -->
+                <div class="glass-card map-card">
+                    <div class="map-card-header">
+                        <div class="map-title-row">
+                            <h3 id="map-title">Efeito da Cultura Política por Estado (UF)</h3>
+                            <button id="btn-back-to-brazil" class="btn-back-map" style="display: none;">Ver Brasil</button>
+                        </div>
+                        <div class="map-legend">
+                            <span class="legend-scale bg-scale-low"></span>
+                            <span class="legend-scale bg-scale-mid"></span>
+                            <span class="legend-scale bg-scale-high"></span>
+                            <span id="map-legend-label" class="legend-txt">Diferença vs Média Nacional</span>
+                        </div>
+                    </div>
+                    <p id="map-desc" class="section-desc">Mapeamento dos efeitos estaduais (intercepto do modelo multinível). Cores quentes indicam estados que impulsionam o engajamento de suas cidades, cores frias indicam estados que atenuam.</p>
+                    <div id="brazil-map" class="map-container"></div>
+                </div>
+
+                <!-- Scatter Plot Card (The Paradox) -->
+                <div class="glass-card chart-card">
+                    <div class="chart-header">
+                        <h3>IPAR-Eleitoral vs.</h3>
+                        <select id="scatter-x-var" class="select-premium">
+                            <option value="urb" selected>Taxa de Urbanização</option>
+                            <option value="pop">População Total</option>
+                            <option value="ifdm">IFDM Geral (Firjan)</option>
+                            <option value="ifdm_e">IFDM Educação</option>
+                            <option value="ifdm_s">IFDM Saúde</option>
+                            <option value="ifdm_emp">IFDM Emprego & Renda</option>
+                        </select>
+                    </div>
+                    <p id="scatter-desc" class="section-desc">Visualização da associação negativa entre a taxa de urbanização e o IPAR-Eleitoral. Cidades menos urbanizadas apresentam engajamento superior.</p>
+                    <div class="chart-wrapper scatter-wrapper">
+                        <canvas id="scatterChart"></canvas>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 Observatório da Participação (OPar). Todos os direitos reservados.</p>
+            <p class="metodologia-link">Metodologia baseada em Análise de Componentes Principais (PCA) e Regressão Linear Multinível.</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet.js CDN -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
