@@ -372,7 +372,7 @@ function styleMuniFeature(feature) {
     const isSelected = currentMunicipio && currentMunicipio.id === muniId;
     
     return {
-        fillColor: isSelected ? '#eab308' : getMapColor(score, 15, 85),
+        fillColor: isSelected ? '#eab308' : getMapColor(score, true),
         weight: isSelected ? 2.5 : 1,
         opacity: 1,
         color: isSelected ? '#fff' : 'rgba(34, 34, 60, 0.1)',
@@ -497,31 +497,28 @@ function updateRadarChart() {
 
 // --- Brand-Aligned Unified Color Interpolator ---
 // Maps a value in range [minVal, maxVal] to a three-color ramp using INCT brand colors:
-// Low/Min -> Steel Blue (#97a7b6)
-// Mid/Average -> Dark Blue (#22223c)
-// High/Max -> Coral (#df7a5e)
-function getMapColor(val, minVal, maxVal) {
+// 5 Discrete Color Classes matching the legend exactly:
+// Muito Baixo (< 25) -> Steel Blue (#97a7b6)
+// Baixo (25-38)      -> Slate (#64748b)
+// Médio (38-52)      -> Dark Blue (#22223c)
+// Alto (52-65)       -> Coral (#df7a5e)
+// Muito Alto (>= 65)  -> Terracota (#b84a39)
+function getMapColor(val, isStateMode = true) {
     if (val === null || val === undefined) return '#f1f1f5';
     
-    let norm = (val - minVal) / (maxVal - minVal);
-    norm = Math.max(0, Math.min(1, norm)); // Clamp [0, 1]
-    
-    let r, g, b;
-    if (norm < 0.5) {
-        // Interpolate: Steel Blue (#97a7b6 -> rgb(151,167,182)) -> Dark Blue (#22223c -> rgb(34,34,60))
-        const p = norm * 2;
-        r = Math.round(151 + (34 - 151) * p);
-        g = Math.round(167 + (34 - 167) * p);
-        b = Math.round(182 + (60 - 182) * p);
+    if (isStateMode) {
+        if (val < 25) return '#97a7b6';       // Muito Baixo
+        if (val < 38) return '#64748b';       // Baixo
+        if (val < 52) return '#22223c';       // Médio
+        if (val < 65) return '#df7a5e';       // Alto
+        return '#b84a39';                     // Muito Alto
     } else {
-        // Interpolate: Dark Blue (#22223c -> rgb(34,34,60)) -> Coral (#df7a5e -> rgb(223,122,94))
-        const p = (norm - 0.5) * 2;
-        r = Math.round(34 + (223 - 34) * p);
-        g = Math.round(34 + (122 - 34) * p);
-        b = Math.round(60 + (94 - 60) * p);
+        if (val < -10) return '#97a7b6';      // Muito Negativo
+        if (val < -3) return '#64748b';       // Negativo
+        if (val <= 3) return '#22223c';       // Neutro / Na Média
+        if (val <= 10) return '#df7a5e';      // Positivo
+        return '#b84a39';                     // Muito Positivo
     }
-    
-    return `rgb(${r}, ${g}, ${b})`;
 }
 
 // --- Update Map Legend Content ---
@@ -536,32 +533,48 @@ function updateMapLegend(mode, uf) {
         if (subtitleEl) subtitleEl.innerText = "Diferença do Efeito Estadual vs Média Nacional (em pontos)";
         ticksEl.innerHTML = `
             <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-very-low"></span>
+                <span class="tick-label"><strong>Muito Negativo</strong> <span class="tick-range">(< -10 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-low"></span>
-                <span class="tick-label"><strong>Abaixo da Média</strong> <span class="tick-range">(Atenua engajamento: -18 pts)</span></span>
+                <span class="tick-label"><strong>Negativo</strong> <span class="tick-range">(-10 a -3 pts)</span></span>
             </div>
             <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-mid"></span>
-                <span class="tick-label"><strong>Na Média Nacional</strong> <span class="tick-range">(Efeito Neutro: 0 pts)</span></span>
+                <span class="tick-label"><strong>Neutro / Na Média</strong> <span class="tick-range">(-3 a +3 pts)</span></span>
             </div>
             <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-high"></span>
-                <span class="tick-label"><strong>Acima da Média</strong> <span class="tick-range">(Impulsiona engajamento: +18 pts)</span></span>
+                <span class="tick-label"><strong>Positivo</strong> <span class="tick-range">(+3 a +10 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-very-high"></span>
+                <span class="tick-label"><strong>Muito Positivo</strong> <span class="tick-range">(> +10 pts)</span></span>
             </div>
         `;
     } else {
         if (subtitleEl) subtitleEl.innerText = `Score IPAR-Eleitoral (0 a 100 pontos) - ${uf || ''}`;
         ticksEl.innerHTML = `
             <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-very-low"></span>
+                <span class="tick-label"><strong>Muito Baixo</strong> <span class="tick-range">(0 - 25 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-low"></span>
-                <span class="tick-label"><strong>Baixo</strong> <span class="tick-range">(0 a 38 pts)</span></span>
+                <span class="tick-label"><strong>Baixo</strong> <span class="tick-range">(25 - 38 pts)</span></span>
             </div>
             <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-mid"></span>
-                <span class="tick-label"><strong>Médio</strong> <span class="tick-range">(38 a 52 pts)</span></span>
+                <span class="tick-label"><strong>Médio</strong> <span class="tick-range">(38 - 52 pts)</span></span>
             </div>
             <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-high"></span>
-                <span class="tick-label"><strong>Alto / Muito Alto</strong> <span class="tick-range">(52 a 100 pts)</span></span>
+                <span class="tick-label"><strong>Alto</strong> <span class="tick-range">(52 - 65 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-very-high"></span>
+                <span class="tick-label"><strong>Muito Alto</strong> <span class="tick-range">(65 - 100 pts)</span></span>
             </div>
             <div class="legend-tick-item legend-selected-chip">
                 <span class="tick-color-badge bg-scale-selected"></span>
@@ -611,7 +624,7 @@ function showNationalMap() {
         const estInfo = estadosData[uf];
         const effect = estInfo ? estInfo.efeito_uf : 0;
         return {
-            fillColor: getMapColor(effect, -18, 18),
+            fillColor: getMapColor(effect, false),
             weight: 1.5,
             opacity: 1,
             color: 'rgba(34, 34, 60, 0.15)',
