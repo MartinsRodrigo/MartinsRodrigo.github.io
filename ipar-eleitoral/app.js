@@ -351,9 +351,11 @@ function selectMunicipio(m) {
         if (isUfChanged) {
             // Load state map of the newly selected city
             loadStateMap(m.uf);
-        } else {
             // Re-render layer to highlight newly selected city
             if (stateLayer) stateLayer.setStyle(styleMuniFeature);
+            // Update map legend selected city chip
+            const selectedNameEl = document.getElementById('legend-selected-name');
+            if (selectedNameEl) selectedNameEl.innerText = `(${m.nome})`;
         }
     } else {
         // We are in 'brazil' view, update the toggle button to say "Ver [UF]"
@@ -522,6 +524,53 @@ function getMapColor(val, minVal, maxVal) {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+// --- Update Map Legend Content ---
+function updateMapLegend(mode, uf) {
+    const subtitleEl = document.getElementById('map-legend-subtitle');
+    const ticksEl = document.getElementById('legend-ticks');
+    if (!ticksEl) return;
+
+    const selectedName = currentMunicipio ? currentMunicipio.nome : '';
+
+    if (mode === 'brazil') {
+        if (subtitleEl) subtitleEl.innerText = "Diferença do Efeito Estadual vs Média Nacional (em pontos)";
+        ticksEl.innerHTML = `
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-low"></span>
+                <span class="tick-label"><strong>Abaixo da Média</strong> <span class="tick-range">(Atenua engajamento: -18 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-mid"></span>
+                <span class="tick-label"><strong>Na Média Nacional</strong> <span class="tick-range">(Efeito Neutro: 0 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-high"></span>
+                <span class="tick-label"><strong>Acima da Média</strong> <span class="tick-range">(Impulsiona engajamento: +18 pts)</span></span>
+            </div>
+        `;
+    } else {
+        if (subtitleEl) subtitleEl.innerText = `Score IPAR-Eleitoral (0 a 100 pontos) - ${uf || ''}`;
+        ticksEl.innerHTML = `
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-low"></span>
+                <span class="tick-label"><strong>Baixo</strong> <span class="tick-range">(0 a 38 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-mid"></span>
+                <span class="tick-label"><strong>Médio</strong> <span class="tick-range">(38 a 52 pts)</span></span>
+            </div>
+            <div class="legend-tick-item">
+                <span class="tick-color-badge bg-scale-high"></span>
+                <span class="tick-label"><strong>Alto / Muito Alto</strong> <span class="tick-range">(52 a 100 pts)</span></span>
+            </div>
+            <div class="legend-tick-item legend-selected-chip">
+                <span class="tick-color-badge bg-scale-selected"></span>
+                <span class="tick-label"><strong>Selecionado</strong> <span id="legend-selected-name" class="tick-range">${selectedName ? `(${selectedName})` : ''}</span></span>
+            </div>
+        `;
+    }
+}
+
 // --- Initialize Leaflet Map ---
 function initMap() {
     mapInstance = L.map('brazil-map', {
@@ -550,8 +599,8 @@ function showNationalMap() {
     }
     
     document.getElementById('map-title').innerText = "Efeito da Cultura Política por Estado (UF)";
-    document.getElementById('map-legend-label').innerText = "Diferença vs Média Nacional (Escala INCT)";
     document.getElementById('map-desc').innerText = "Mapeamento dos efeitos estaduais (intercepto do modelo multinível). Cores quentes indicam estados que impulsionam o engajamento de suas cidades, cores frias indicam estados que atenuam.";
+    updateMapLegend('brazil');
     
     // Clear any existing layers
     if (stateLayer) { mapInstance.removeLayer(stateLayer); stateLayer = null; }
@@ -635,8 +684,8 @@ async function loadStateMap(uf) {
     btnBackToBrazil.innerText = "Ver Brasil";
     
     document.getElementById('map-title').innerText = `Municípios de ${uf}`;
-    document.getElementById('map-legend-label').innerText = "IPAR-Eleitoral (0-100) (Escala INCT)";
     document.getElementById('map-desc').innerText = `Visualização das cidades de ${uf} coloridas pelo score IPAR-Eleitoral. Passe o mouse para ver os nomes e valores IPAR. O município selecionado está em amarelo.`;
+    updateMapLegend('state', uf);
     
     if (nationalLayer) { mapInstance.removeLayer(nationalLayer); }
     if (stateLayer) { mapInstance.removeLayer(stateLayer); }

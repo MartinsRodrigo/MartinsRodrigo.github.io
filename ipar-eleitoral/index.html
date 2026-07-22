@@ -195,14 +195,38 @@
                             <h3 id="map-title">Efeito da Cultura Política por Estado (UF)</h3>
                             <button id="btn-back-to-brazil" class="btn-back-map" style="display: none;">Ver Brasil</button>
                         </div>
-                        <div class="map-legend">
-                            <span class="legend-scale bg-scale-low"></span>
-                            <span class="legend-scale bg-scale-mid"></span>
-                            <span class="legend-scale bg-scale-high"></span>
-                            <span id="map-legend-label" class="legend-txt">Diferença vs Média Nacional</span>
-                        </div>
                     </div>
                     <p id="map-desc" class="section-desc">Mapeamento dos efeitos estaduais (intercepto do modelo multinível). Cores quentes indicam estados que impulsionam o engajamento de suas cidades, cores frias indicam estados que atenuam.</p>
+
+                    <!-- Prominent Dedicated Map Legend -->
+                    <div class="map-legend-container">
+                        <div class="legend-header">
+                            <span class="legend-title">Escala de Cores do Mapa:</span>
+                            <span id="map-legend-subtitle" class="legend-subtitle">Score IPAR-Eleitoral (0 a 100 pontos)</span>
+                        </div>
+                        <div class="legend-bar-wrapper">
+                            <div class="legend-gradient-bar"></div>
+                            <div class="legend-ticks" id="legend-ticks">
+                                <div class="legend-tick-item">
+                                    <span class="tick-color-badge bg-scale-low"></span>
+                                    <span class="tick-label"><strong>Baixo</strong> <span class="tick-range">(0 - 38 pts)</span></span>
+                                </div>
+                                <div class="legend-tick-item">
+                                    <span class="tick-color-badge bg-scale-mid"></span>
+                                    <span class="tick-label"><strong>Médio</strong> <span class="tick-range">(38 - 52 pts)</span></span>
+                                </div>
+                                <div class="legend-tick-item">
+                                    <span class="tick-color-badge bg-scale-high"></span>
+                                    <span class="tick-label"><strong>Alto / Muito Alto</strong> <span class="tick-range">(52 - 100 pts)</span></span>
+                                </div>
+                                <div class="legend-tick-item legend-selected-chip">
+                                    <span class="tick-color-badge bg-scale-selected"></span>
+                                    <span class="tick-label"><strong>Selecionado</strong> <span id="legend-selected-name" class="tick-range"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="brazil-map" class="map-container"></div>
                 </div>
 

@@ -750,27 +750,87 @@ body {
     box-shadow: 0 0 0 2px var(--glow-cyan);
 }
 
-.map-legend {
+.map-legend-container {
+    background: rgba(34, 34, 60, 0.03);
+    border: 1px solid rgba(34, 34, 60, 0.08);
+    border-radius: var(--border-radius-sm);
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.75rem;
     display: flex;
-    align-items: center;
-    gap: 0.15rem;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
-.legend-scale {
+.legend-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.legend-subtitle {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.legend-bar-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.legend-gradient-bar {
+    height: 8px;
+    border-radius: 4px;
+    background: linear-gradient(to right, #97a7b6 0%, #22223c 50%, #df7a5e 100%);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.legend-ticks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.legend-tick-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--text-primary);
+}
+
+.tick-color-badge {
     width: 12px;
     height: 12px;
-    border-radius: 2px;
+    border-radius: 3px;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
 .bg-scale-low { background: #97a7b6; }
-.bg-scale-mid { background: #22223c; border: 1px solid rgba(255, 255, 255, 0.1); }
+.bg-scale-mid { background: #22223c; }
 .bg-scale-high { background: #df7a5e; }
+.bg-scale-selected { background: #eab308; border: 1px solid #ca8a04; }
 
-.legend-txt {
-    font-size: 0.65rem;
-    color: var(--text-secondary);
-    margin-left: 0.25rem;
-    font-weight: 600;
+.tick-label strong {
+    font-weight: 700;
+}
+
+.tick-range {
+    color: var(--text-muted);
+    font-size: 0.725rem;
 }
 
 .map-container {
