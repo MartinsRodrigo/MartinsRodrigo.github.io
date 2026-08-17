@@ -397,11 +397,11 @@ function styleMuniFeature(feature) {
     const isSelected = currentMunicipio && currentMunicipio.id === muniId;
     
     return {
-        fillColor: isSelected ? '#eab308' : getMapColor(score, true),
-        weight: isSelected ? 2.5 : 1,
+        fillColor: getMapColor(score, true), // Sempre mantém a cor da escala
+        weight: isSelected ? 3 : 1,
         opacity: 1,
-        color: isSelected ? '#fff' : 'rgba(34, 34, 60, 0.1)',
-        fillOpacity: isSelected ? 0.95 : 0.7
+        color: isSelected ? '#22223c' : 'rgba(34, 34, 60, 0.1)', // Borda mais escura para o selecionado
+        fillOpacity: isSelected ? 1 : 0.7
     };
 }
 
@@ -768,7 +768,7 @@ async function loadStateMap(uf) {
                     e.target.setStyle({
                         fillOpacity: 0.9,
                         weight: isSelected ? 3.5 : 2,
-                        color: isSelected ? '#fff' : 'rgba(34,34,60,0.4)'
+                        color: isSelected ? '#22223c' : 'rgba(34,34,60,0.4)'
                     });
                 },
                 mouseout: (e) => {

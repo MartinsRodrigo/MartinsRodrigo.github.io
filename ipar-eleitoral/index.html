@@ -121,6 +121,24 @@
                             <span class="demo-lbl">Hierarquia Urbana:</span>
                             <span id="muni-regic" class="demo-val">--</span>
                         </div>
+                        <!-- FIRJAN Socioeconomic indicators moved here -->
+                        <div class="firjan-block" style="margin-top: 1rem; border-top: 1px solid var(--card-border); padding-top: 1rem;">
+                            <h4 style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Desenvolvimento Socioeconômico (IFDM 2022)</h4>
+                            <div class="firjan-metrics" style="display: flex; gap: 0.5rem; justify-content: space-between;">
+                                <div class="firjan-metric" style="display: flex; flex-direction: column; align-items: center; background: var(--bg-darker); padding: 0.5rem; border-radius: var(--border-radius-sm); flex: 1;">
+                                    <span class="lbl" style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">Educação</span>
+                                    <span id="ifdm-e" class="val" style="font-size: 1.1rem; font-weight: 700; color: var(--accent-indigo);">--</span>
+                                </div>
+                                <div class="firjan-metric" style="display: flex; flex-direction: column; align-items: center; background: var(--bg-darker); padding: 0.5rem; border-radius: var(--border-radius-sm); flex: 1;">
+                                    <span class="lbl" style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">Saúde</span>
+                                    <span id="ifdm-s" class="val" style="font-size: 1.1rem; font-weight: 700; color: var(--accent-indigo);">--</span>
+                                </div>
+                                <div class="firjan-metric" style="display: flex; flex-direction: column; align-items: center; background: var(--bg-darker); padding: 0.5rem; border-radius: var(--border-radius-sm); flex: 1;">
+                                    <span class="lbl" style="font-size: 0.75rem; color: var(--text-secondary); font-weight: 500;">Emprego</span>
+                                    <span id="ifdm-emp" class="val" style="font-size: 1.1rem; font-weight: 700; color: var(--accent-indigo);">--</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -155,25 +173,6 @@
                             <div class="alert-content">
                                 <h4 id="residual-title">Engajamento acima do esperado</h4>
                                 <p id="residual-desc">O município participa X pontos acima do previsto por suas condições demográficas.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- FIRJAN Socioeconomic indicators -->
-                    <div class="firjan-block">
-                        <h4>Desenvolvimento Socioeconômico (IFDM 2022)</h4>
-                        <div class="firjan-metrics">
-                            <div class="firjan-metric">
-                                <span class="lbl">Educação</span>
-                                <span id="ifdm-e" class="val">--</span>
-                            </div>
-                            <div class="firjan-metric">
-                                <span class="lbl">Saúde</span>
-                                <span id="ifdm-s" class="val">--</span>
-                            </div>
-                            <div class="firjan-metric">
-                                <span class="lbl">Emprego & Renda</span>
-                                <span id="ifdm-emp" class="val">--</span>
                             </div>
                         </div>
                     </div>
@@ -264,9 +263,11 @@
 
                             <h3>O que encontro nos gráficos e indicadores?</h3>
                             <ul>
-                                <li><strong>Métricas Principais:</strong> No lado direito, você verá os principais indicadores do município ou estado selecionado: o valor do IPAR-Eleitoral, a sua Hierarquia Urbana, além do Desenvolvimento Socioeconômico e da taxa de Vulnerabilidade.</li>
-                                <li><strong>Gráfico Preditores de Participação:</strong> Um diagrama que exibe o peso de diferentes variáveis (Socioeconômicas e Vulnerabilidades) no índice de participação eleitoral do local. As bandas semitransparentes indicam a margem de predição dos dados. Asteriscos (*) destacam correlações estatisticamente significativas.</li>
-                                <li><strong>Gráfico de Associação Bivariada:</strong> Apresenta uma análise de dispersão onde os municípios são distribuídos de acordo com o cruzamento das variáveis sociodemográficas com o IPAR-Eleitoral, facilitando a percepção de agrupamentos (clusters).</li>
+                                <li><strong>Informações do Município (Lado Esquerdo):</strong> Exibe dados do local selecionado, como estado, região, o índice IPAR, classificação e ranking. Além disso, traz o bloco sociodemográfico com população, taxa de urbanização, porte, hierarquia urbana e os índices de desenvolvimento da FIRJAN (Educação, Saúde, Emprego).</li>
+                                <li><strong>Ajuste Sócio-Demográfico:</strong> Compara a participação real observada do município com o que seria "Esperado pelo Modelo" (baseado no perfil socioeconômico). Permite entender se a cidade engaja mais ou menos do que o previsto.</li>
+                                <li><strong>Gráfico Radar (Os Três Pilares):</strong> Desdobra a participação eleitoral em Comparecimento, Alistamento Jovem e Filiação Partidária, comparando os resultados locais diretamente com a média nacional.</li>
+                                <li><strong>Mapa Geográfico:</strong> No mapa nacional, exibe o efeito da cultura política de cada Estado. Ao selecionar um Estado (mapa estadual), mostra todos os municípios, permitindo explorar o nível do IPAR em escala local. A legenda de cores norteia a interpretação.</li>
+                                <li><strong>Gráfico de Associação Bivariada:</strong> Uma análise de dispersão relacionando o IPAR-Eleitoral com as variáveis sociodemográficas. Você pode selecionar qual variável deseja correlacionar no painel do gráfico.</li>
                             </ul>
                         </div>
                     </div>
