@@ -233,6 +233,31 @@ function setupInteractiveControls() {
     scatterXVarSelect.addEventListener('change', () => {
         updateScatterPlot();
     });
+
+    // Como Usar Modal
+    const btnComoUsar = document.getElementById('btn-como-usar');
+    const modalComoUsar = document.getElementById('como-usar-modal');
+    const closeBtnModal = document.getElementById('close-modal');
+
+    if (btnComoUsar && modalComoUsar && closeBtnModal) {
+        btnComoUsar.addEventListener('click', () => {
+            modalComoUsar.style.display = 'flex';
+            // Slight delay to allow display:flex to apply before adding class for opacity transition
+            setTimeout(() => modalComoUsar.classList.add('active'), 10);
+        });
+
+        closeBtnModal.addEventListener('click', () => {
+            modalComoUsar.classList.remove('active');
+            setTimeout(() => modalComoUsar.style.display = 'none', 300);
+        });
+
+        modalComoUsar.addEventListener('click', (e) => {
+            if (e.target === modalComoUsar) {
+                modalComoUsar.classList.remove('active');
+                setTimeout(() => modalComoUsar.style.display = 'none', 300);
+            }
+        });
+    }
 }
 
 // --- Populate Dashboard Card with Selected Municipality ---

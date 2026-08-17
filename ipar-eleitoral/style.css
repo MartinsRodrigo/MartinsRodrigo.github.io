@@ -960,3 +960,133 @@ body {
         height: 360px;
     }
 }
+
+/* --- Como Usar Modal --- */
+.btn-como-usar {
+    background: linear-gradient(135deg, var(--accent-indigo), var(--accent-cyan));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius-sm);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: var(--transition-smooth);
+    box-shadow: 0 2px 8px rgba(223, 122, 94, 0.3);
+}
+
+.btn-como-usar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(223, 122, 94, 0.4);
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(34, 34, 60, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--bg-main);
+    width: 90%;
+    max-width: 600px;
+    max-height: 85vh;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0.95);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+}
+
+.modal-header h2 {
+    font-size: 1.5rem;
+    color: var(--accent-indigo);
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--accent-rose);
+}
+
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+.modal-body p {
+    margin-bottom: 1rem;
+}
+
+.modal-body h3 {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+    margin: 1.5rem 0 0.75rem 0;
+    border-bottom: 2px solid var(--glow-cyan);
+    padding-bottom: 0.25rem;
+    display: inline-block;
+}
+
+.modal-body ul {
+    list-style-type: none;
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.modal-body ul li {
+    margin-bottom: 0.75rem;
+    position: relative;
+    padding-left: 1.25rem;
+}
+
+.modal-body ul li::before {
+    content: "•";
+    color: var(--accent-cyan);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPAR-Eleitoral | Painel Interativo de Engajamento Político Municipal</title>
-    <meta name="description" content="Explore os resultados do IPAR-Eleitoral (Índice de Participação Eleitoral) de 2022 dos municípios brasileiros. Descubra os preditores de participação e analise o paradoxo eleitoral brasileiro.">
+    <meta name="description" content="Explore os resultados do IPAR-Eleitoral (Índice de Participação Partidário-Eleitoral) de 2022 dos municípios brasileiros. Descubra os preditores de participação e analise o paradoxo eleitoral brasileiro.">
     
     <!-- Google Fonts: Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +25,14 @@
                 <img src="logo_opar.png" alt="OPAR Logo" class="logo-img" style="height: 54px; width: auto; object-fit: contain;">
                 <div class="logo-text">
                     <h1>IPAR-Eleitoral</h1>
-                    <p>Índice de Participação Eleitoral Municipal</p>
+                    <p>Índice de Participação Partidário-Eleitoral</p>
                 </div>
             </div>
             <div class="meta-info">
+                <button id="btn-como-usar" class="btn-como-usar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                    Como Usar
+                </button>
                 <span class="badge">TSE (2022/2024)</span>
                 <span class="badge">IBGE (Censo 22 / REGIC)</span>
                 <span class="badge">FIRJAN (IFDM 22)</span>
@@ -236,6 +240,36 @@
                     </div>
 
                     <div id="brazil-map" class="map-container"></div>
+                </div>
+
+                <!-- Como Usar Modal -->
+                <div id="como-usar-modal" class="modal-overlay" style="display: none;">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2>Como usar o painel</h2>
+                            <button id="close-modal" class="close-btn">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Bem-vindo ao Painel Interativo <strong>IPAR-Eleitoral</strong> (Índice de Participação Partidário-Eleitoral).</p>
+                            
+                            <h3>O que são os dados?</h3>
+                            <p>Os dados apresentados neste painel reúnem informações do Tribunal Superior Eleitoral (TSE) de 2022 e 2024, além de indicadores demográficos e econômicos do Censo do IBGE 2022 (e REGIC) e dados da FIRJAN (IFDM 2022). O objetivo é fornecer uma visão multidimensional sobre a participação política, o desenvolvimento humano e as vulnerabilidades dos municípios brasileiros.</p>
+                            
+                            <h3>Como interagir com o mapa?</h3>
+                            <ul>
+                                <li><strong>Visão Nacional x Estadual:</strong> Você pode alternar entre a visão geral do Brasil e a visão por Estados usando os botões na parte inferior do mapa.</li>
+                                <li><strong>Legenda de Cores:</strong> As cores no mapa indicam o nível do IPAR-Eleitoral, indo de "Muito Baixo" a "Muito Alto". A legenda orienta a visualização para identificar padrões geográficos.</li>
+                                <li><strong>Selecione um Município:</strong> Clique em qualquer município no mapa ou utilize a barra de busca no topo para visualizar detalhes locais.</li>
+                            </ul>
+
+                            <h3>O que encontro nos gráficos e indicadores?</h3>
+                            <ul>
+                                <li><strong>Métricas Principais:</strong> No lado direito, você verá os principais indicadores do município ou estado selecionado: o valor do IPAR-Eleitoral, a sua Hierarquia Urbana, além do Desenvolvimento Socioeconômico e da taxa de Vulnerabilidade.</li>
+                                <li><strong>Gráfico Preditores de Participação:</strong> Um diagrama que exibe o peso de diferentes variáveis (Socioeconômicas e Vulnerabilidades) no índice de participação eleitoral do local. As bandas semitransparentes indicam a margem de predição dos dados. Asteriscos (*) destacam correlações estatisticamente significativas.</li>
+                                <li><strong>Gráfico de Associação Bivariada:</strong> Apresenta uma análise de dispersão onde os municípios são distribuídos de acordo com o cruzamento das variáveis sociodemográficas com o IPAR-Eleitoral, facilitando a percepção de agrupamentos (clusters).</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Scatter Plot Card (The Paradox) -->
