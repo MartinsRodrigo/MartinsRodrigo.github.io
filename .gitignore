@@ -1,3 +1,5 @@
 _site/
 .Rproj.user
-publicacoes/
+/publicacoes/
+__pycache__/
+tmp/

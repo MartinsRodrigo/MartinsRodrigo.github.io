@@ -1,13 +1,25 @@
 {
-    "icons": [{
-      "src": "img/icon.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },{
-        "src": "img/icon-192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-    }],
-    "display": "standalone",
-    "start_url": "./?utm_source=web_app_manifest"
+  "name": "Rodrigo Martins — Site acadêmico",
+  "short_name": "Rodrigo Martins",
+  "description": "Site acadêmico de Rodrigo Martins, cientista político.",
+  "lang": "pt-BR",
+  "start_url": "/pt/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#fbfbfd",
+  "theme_color": "#315b86",
+  "icons": [
+    {
+      "src": "/img/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/img/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
