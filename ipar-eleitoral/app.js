@@ -617,8 +617,8 @@ function initMap() {
         attributionControl: false
     }).setView([-14.235, -51.925], 4);
     
-    // Light Positron tile layer (perfectly matches light theme!)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    // Light Gray Canvas tile layer (clean, minimalist, no API key required)
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 8,
         minZoom: 3
     }).addTo(mapInstance);
