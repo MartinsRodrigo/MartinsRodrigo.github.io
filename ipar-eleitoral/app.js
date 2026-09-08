@@ -1,4 +1,4 @@
-/* IPAR-Eleitoral Hotsite Javascript Application */
+/* IPar-Eleitoral Hotsite Javascript Application */
 
 // --- Global Application State ---
 let municipiosData = [];
@@ -376,8 +376,16 @@ function selectMunicipio(m) {
         if (isUfChanged) {
             // Load state map of the newly selected city
             loadStateMap(m.uf);
+        } else {
             // Re-render layer to highlight newly selected city
-            if (stateLayer) stateLayer.setStyle(styleMuniFeature);
+            if (stateLayer) {
+                stateLayer.setStyle(styleMuniFeature);
+                stateLayer.eachLayer(l => {
+                    if (l.feature && parseInt(l.feature.properties.id) === m.id) {
+                        l.bringToFront();
+                    }
+                });
+            }
             // Update map legend selected city chip
             const selectedNameEl = document.getElementById('legend-selected-name');
             if (selectedNameEl) selectedNameEl.innerText = `(${m.nome})`;
@@ -397,11 +405,11 @@ function styleMuniFeature(feature) {
     const isSelected = currentMunicipio && currentMunicipio.id === muniId;
     
     return {
-        fillColor: getMapColor(score, true), // Sempre mantém a cor da escala
+        fillColor: isSelected ? '#facc15' : getMapColor(score, true), // Amarelo vibrante para o município selecionado
         weight: isSelected ? 3 : 1,
         opacity: 1,
-        color: isSelected ? '#22223c' : 'rgba(34, 34, 60, 0.1)', // Borda mais escura para o selecionado
-        fillOpacity: isSelected ? 1 : 0.7
+        color: isSelected ? '#1e293b' : 'rgba(34, 34, 60, 0.15)', // Borda destacada para o selecionado
+        fillOpacity: isSelected ? 0.95 : 0.7
     };
 }
 
@@ -579,7 +587,7 @@ function updateMapLegend(mode, uf) {
             </div>
         `;
     } else {
-        if (subtitleEl) subtitleEl.innerText = `Score IPAR-Eleitoral (0 a 100 pontos) - ${uf || ''}`;
+        if (subtitleEl) subtitleEl.innerText = `Score IPar-Eleitoral (0 a 100 pontos) - ${uf || ''}`;
         ticksEl.innerHTML = `
             <div class="legend-tick-item">
                 <span class="tick-color-badge bg-scale-very-low"></span>
@@ -681,7 +689,7 @@ function showNationalMap() {
                         ${effect >= 0 ? '+' : ''}${formatNumber(effect, 2)} pts
                     </strong>
                 </span>
-                <span style="display: block; color: #4a4e69;">IPAR-Eleitoral Médio: 
+                <span style="display: block; color: #4a4e69;">IPar-Eleitoral Médio: 
                     <strong>${formatNumber(avgIparState, 1)}</strong>
                 </span>
                 <span style="display: block; font-size: 0.725rem; color: var(--accent-cyan); margin-top: 6px; font-weight: 600;">Clique para explorar as cidades deste estado</span>
@@ -722,7 +730,7 @@ async function loadStateMap(uf) {
     btnBackToBrazil.innerText = "Ver Brasil";
     
     document.getElementById('map-title').innerText = `Municípios de ${uf}`;
-    document.getElementById('map-desc').innerText = `Visualização das cidades de ${uf} coloridas pelo score IPAR-Eleitoral. Passe o mouse para ver os nomes e valores IPAR. O município selecionado está em amarelo.`;
+    document.getElementById('map-desc').innerText = `Visualização das cidades de ${uf} coloridas pelo score IPar-Eleitoral. Passe o mouse para ver os nomes e valores IPar. O município selecionado está em amarelo.`;
     updateMapLegend('state', uf);
     
     if (nationalLayer) { mapInstance.removeLayer(nationalLayer); }
@@ -752,7 +760,7 @@ async function loadStateMap(uf) {
                 let popupText = `
                     <div style="font-family: var(--font-primary);">
                         <strong style="font-size: 0.95rem; display: block; margin-bottom: 4px;">${muniInfo.nome} (${muniInfo.uf})</strong>
-                        <span style="display: block; color: #4a4e69;">IPAR-Eleitoral: <strong>${formatNumber(muniInfo.ipar, 1)}</strong></span>
+                        <span style="display: block; color: #4a4e69;">IPar-Eleitoral: <strong>${formatNumber(muniInfo.ipar, 1)}</strong></span>
                         <span style="display: block; color: #4a4e69; font-size: 0.725rem;">Comparecimento: ${formatNumber(muniInfo.comp, 1)}%</span>
                         <span style="display: block; color: #4a4e69; font-size: 0.725rem;">Alistamento Jovem: ${formatNumber(muniInfo.alist, 1)}%</span>
                         <span style="display: block; color: #4a4e69; font-size: 0.725rem;">Filiação Partidária: ${formatNumber(muniInfo.fil, 1)}%</span>
@@ -766,13 +774,18 @@ async function loadStateMap(uf) {
                 mouseover: (e) => {
                     const isSelected = currentMunicipio && currentMunicipio.id === muniId;
                     e.target.setStyle({
-                        fillOpacity: 0.9,
+                        fillOpacity: 0.95,
                         weight: isSelected ? 3.5 : 2,
-                        color: isSelected ? '#22223c' : 'rgba(34,34,60,0.4)'
+                        color: isSelected ? '#1e293b' : 'rgba(34,34,60,0.4)'
                     });
                 },
                 mouseout: (e) => {
                     stateLayer.resetStyle(e.target);
+                    stateLayer.eachLayer(l => {
+                        if (l.feature && currentMunicipio && parseInt(l.feature.properties.id) === currentMunicipio.id) {
+                            l.bringToFront();
+                        }
+                    });
                 },
                 click: () => {
                     if (muniInfo) selectMunicipio(muniInfo);
@@ -785,6 +798,17 @@ async function loadStateMap(uf) {
             onEachFeature: onEachMuni
         }).addTo(mapInstance);
         
+        // Bring selected city to front
+        stateLayer.eachLayer(l => {
+            if (l.feature && currentMunicipio && parseInt(l.feature.properties.id) === currentMunicipio.id) {
+                l.bringToFront();
+            }
+        });
+
+        // Update map legend selected city chip
+        const selectedNameEl = document.getElementById('legend-selected-name');
+        if (selectedNameEl && currentMunicipio) selectedNameEl.innerText = `(${currentMunicipio.nome})`;
+
         // Fit map viewport to state boundaries
         mapInstance.fitBounds(stateLayer.getBounds(), { padding: [20, 20] });
         
@@ -874,7 +898,7 @@ function initScatterPlot() {
                 y: {
                     title: {
                         display: true,
-                        text: 'IPAR-Eleitoral (Score)',
+                        text: 'IPar-Eleitoral (Score)',
                         color: '#4a4e69',
                         font: { family: 'Outfit', size: 12, weight: '600' }
                     },
@@ -900,7 +924,7 @@ function initScatterPlot() {
                                 ? formatNumber(raw.xRaw || raw.x) + ' hab.' 
                                 : formatNumber(raw.x, 1);
                                 
-                            return `${raw.label} (${raw.uf}): ${labelX}: ${xValFormatted} | IPAR: ${formatNumber(raw.y, 1)}`;
+                            return `${raw.label} (${raw.uf}): ${labelX}: ${xValFormatted} | IPar: ${formatNumber(raw.y, 1)}`;
                         }
                     }
                 }
@@ -1054,7 +1078,7 @@ function updateScatterPlot() {
     const direction = b < 0 ? 'negativa' : 'positiva';
     const correlationStrength = Math.abs(b) > 0.15 ? 'expressivo' : 'sutil';
     
-    scatterDesc.innerHTML = `Visualização da associação ${direction} entre ${xLabel.toLowerCase()} (eixo X em escala ${xVar === 'pop' ? 'logarítmica' : 'linear'}) e o IPAR-Eleitoral, com <strong>banda de predição de 95%</strong> (sombreada). ${sigText}`;
+    scatterDesc.innerHTML = `Visualização da associação ${direction} entre ${xLabel.toLowerCase()} (eixo X em escala ${xVar === 'pop' ? 'logarítmica' : 'linear'}) e o IPar-Eleitoral, com <strong>banda de predição de 95%</strong> (sombreada). ${sigText}`;
     
     scatterChartInstance.update();
 }
