@@ -377,6 +377,9 @@ def render_redirect(site: dict, redirect: dict) -> str:
 def generated_files(config: dict) -> dict[Path, str]:
     site, person, pages = config["site"], config["person"], config["pages"]
     outputs: dict[Path, str] = {
+        ROOT / site["google_site_verification_file"]: (
+            f'google-site-verification: {site["google_site_verification_file"]}\n'
+        ),
         ROOT / "site.webmanifest": render_manifest(site),
         ROOT / "sitemap.xml": render_sitemap(site, pages),
         ROOT / "404.html": render_404(site),
