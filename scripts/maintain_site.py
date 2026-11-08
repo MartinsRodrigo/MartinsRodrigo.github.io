@@ -88,7 +88,53 @@ def translation_links(page: dict) -> list[tuple[str, str]]:
     return [("pt-BR", pt_url), ("en", en_url), ("x-default", page["default_url"])]
 
 
-def render_head(site: dict, page: dict) -> str:
+def structured_identity(site: dict, person: dict, page: dict) -> dict:
+    """Return stable Person and WebSite entities for the three home pages."""
+
+    person_id = absolute(site, "/#person")
+    website_id = absolute(site, "/#website")
+    affiliations = []
+    for affiliation in person["affiliations"]:
+        organization = {"@type": "Organization", "name": affiliation["name"]}
+        if affiliation.get("alternate_name"):
+            organization["alternateName"] = affiliation["alternate_name"]
+        affiliations.append(organization)
+
+    return {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Person",
+                "@id": person_id,
+                "name": person["name"],
+                "alternateName": person["alternate_name"],
+                "url": absolute(site, site["default_url"]),
+                "image": {
+                    "@type": "ImageObject",
+                    "url": absolute(site, site["profile_image"]),
+                    "width": site["profile_image_width"],
+                    "height": site["profile_image_height"],
+                },
+                "jobTitle": person["job_title"][page["lang"]],
+                "description": page["description"],
+                "affiliation": affiliations,
+                "knowsAbout": person["knows_about"][page["lang"]],
+                "sameAs": person["same_as"],
+            },
+            {
+                "@type": "WebSite",
+                "@id": website_id,
+                "url": absolute(site, "/"),
+                "name": site["name"],
+                "alternateName": person["alternate_name"],
+                "inLanguage": ["pt-BR", "en"],
+                "author": {"@id": person_id},
+            },
+        ],
+    }
+
+
+def render_head(site: dict, person: dict, page: dict) -> str:
     canonical_path = page.get("canonical", page["url"])
     canonical = absolute(site, canonical_path)
     og_image, image_width, image_height, image_alt = image_metadata(site, page)
@@ -135,6 +181,15 @@ def render_head(site: dict, page: dict) -> str:
             f'    <meta name="twitter:description" content="{esc(page["social_description"])}">',
             f'    <meta name="twitter:image" content="{esc(og_image)}">',
             f'    <meta name="twitter:image:alt" content="{esc(image_alt)}">',
+        ]
+    )
+    if page["og_type"] == "profile":
+        structured = json.dumps(structured_identity(site, person, page), ensure_ascii=False, indent=2)
+        lines.append('    <script type="application/ld+json">')
+        lines.extend(f"    {line}" for line in structured.splitlines())
+        lines.append("    </script>")
+    lines.extend(
+        [
             '    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">',
             '    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">',
             f'    <link rel="stylesheet" href="/css/modern.css?v={esc(site["css_version"])}">',
@@ -189,7 +244,7 @@ def render_manifest(site: dict) -> str:
     manifest = {
         "name": "Rodrigo Martins — Site acadêmico",
         "short_name": "Rodrigo Martins",
-        "description": "Site acadêmico de Rodrigo Martins, cientista político.",
+        "description": "Rodrigo Martins da Silva é cientista político e pesquisador na USP e no INCT-Participa.",
         "lang": "pt-BR",
         "start_url": "/pt/",
         "scope": "/",
@@ -292,8 +347,35 @@ def render_404(site: dict) -> str:
 '''
 
 
+def render_redirect(site: dict, redirect: dict) -> str:
+    target = redirect["target"]
+    canonical_path = redirect.get("canonical", target.split("#", 1)[0])
+    return f'''<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Conteúdo movido | Rodrigo Martins</title>
+    <meta name="description" content="Este conteúdo foi movido para a versão atual do site de Rodrigo Martins.">
+    <meta name="robots" content="noindex, follow">
+    <meta name="theme-color" content="{esc(site['theme_color'])}">
+    <link rel="canonical" href="{esc(absolute(site, canonical_path))}">
+    <meta http-equiv="refresh" content="0; url={esc(target)}">
+    <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+    <link rel="stylesheet" href="/css/modern.css?v={esc(site['css_version'])}">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Pular para o conteúdo</a>
+    <main id="main-content" class="redirect" tabindex="-1">
+      <p>Conteúdo movido. <a href="{esc(target)}">Acesse a página atual</a>.</p>
+    </main>
+  </body>
+</html>
+'''
+
+
 def generated_files(config: dict) -> dict[Path, str]:
-    site, pages = config["site"], config["pages"]
+    site, person, pages = config["site"], config["person"], config["pages"]
     outputs: dict[Path, str] = {
         ROOT / "site.webmanifest": render_manifest(site),
         ROOT / "sitemap.xml": render_sitemap(site, pages),
@@ -305,8 +387,10 @@ def generated_files(config: dict) -> dict[Path, str]:
     for page in pages:
         path = ROOT / page["file"]
         current = path.read_text(encoding="utf-8")
-        updated = replace_head(current, render_head(site, page))
+        updated = replace_head(current, render_head(site, person, page))
         outputs[path] = apply_accessibility(updated, page)
+    for redirect in config["redirects"]:
+        outputs[ROOT / redirect["file"]] = render_redirect(site, redirect)
     return outputs
 
 
@@ -331,7 +415,11 @@ def validate(config: dict, expected: dict[Path, str]) -> list[str]:
         elif path.read_text(encoding="utf-8") != content:
             errors.append(f"out of date: {path.relative_to(ROOT)}")
 
-    checked_html = [ROOT / page["file"] for page in config["pages"]] + [ROOT / "404.html"]
+    checked_html = (
+        [ROOT / page["file"] for page in config["pages"]]
+        + [ROOT / redirect["file"] for redirect in config["redirects"]]
+        + [ROOT / "404.html"]
+    )
     for path in checked_html:
         document = path.read_text(encoding="utf-8")
         parser = StructureParser()
@@ -349,6 +437,15 @@ def validate(config: dict, expected: dict[Path, str]) -> list[str]:
             errors.append(f"aria-label on generic div in {path.relative_to(ROOT)}")
         if 'class="skip-link"' not in document or 'id="main-content"' not in document or 'tabindex="-1"' not in document:
             errors.append(f"missing skip-link target in {path.relative_to(ROOT)}")
+        for payload in re.findall(
+            r'<script\b[^>]*type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
+            document,
+            flags=re.I | re.S,
+        ):
+            try:
+                json.loads(payload)
+            except json.JSONDecodeError as error:
+                errors.append(f"invalid JSON-LD in {path.relative_to(ROOT)}: {error}")
         for reference in re.findall(r'\b(?:href|src)=["\']([^"\']+)["\']', document, flags=re.I):
             target = local_target(path, reference)
             if target is not None and not target.exists():
@@ -383,7 +480,10 @@ def main() -> int:
         for error in errors:
             print(f"ERROR: {error}")
         return 1
-    print(f"PASS: {len(config['pages'])} managed pages and {len(expected)} generated files are current")
+    print(
+        f"PASS: {len(config['pages'])} managed pages, {len(config['redirects'])} redirects "
+        f"and {len(expected)} generated files are current"
+    )
     return 0
 
 

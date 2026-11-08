@@ -13,6 +13,54 @@
     "home_social_height": 630,
     "css_version": "20260830"
   },
+  "person": {
+    "name": "Rodrigo Martins",
+    "alternate_name": "Rodrigo Martins da Silva",
+    "job_title": {
+      "pt-BR": "Cientista político",
+      "en": "Political scientist"
+    },
+    "same_as": [
+      "http://lattes.cnpq.br/6780721072412775",
+      "https://scholar.google.com.br/citations?user=M32zk0MAAAAJ&hl=pt-BR",
+      "https://github.com/MartinsRodrigo",
+      "https://www.researchgate.net/profile/Rodrigo_Martins5",
+      "https://usp-br.academia.edu/RodrigoMartins"
+    ],
+    "affiliations": [
+      {
+        "name": "Universidade de São Paulo",
+        "alternate_name": "USP"
+      },
+      {
+        "name": "INCT-Participa"
+      },
+      {
+        "name": "Judiciário e Democracia",
+        "alternate_name": "JUDE"
+      }
+    ],
+    "knows_about": {
+      "pt-BR": [
+        "Ciência Política",
+        "Instituições políticas",
+        "Judiciário",
+        "Supremo Tribunal Federal",
+        "Justiça eleitoral",
+        "Métodos quantitativos",
+        "Estimação de pontos ideais"
+      ],
+      "en": [
+        "Political science",
+        "Political institutions",
+        "Courts",
+        "Brazilian Federal Supreme Court",
+        "Electoral justice",
+        "Quantitative methods",
+        "Ideal point estimation"
+      ]
+    }
+  },
   "pages": [
     {
       "file": "index.html",
@@ -22,7 +70,7 @@
       "alternate": "/eng/",
       "default_url": "/pt/",
       "title": "Rodrigo Martins",
-      "description": "Site acadêmico de Rodrigo Martins, cientista político.",
+      "description": "Rodrigo Martins da Silva é cientista político e pesquisador na USP e no INCT-Participa. Estuda Judiciário, STF, justiça eleitoral e métodos quantitativos.",
       "social_description": "Pesquisa em instituições políticas, Judiciário e metodologia quantitativa.",
       "og_type": "profile",
       "image": "home",
@@ -36,7 +84,7 @@
       "alternate": "/eng/",
       "default_url": "/pt/",
       "title": "Rodrigo Martins | Cientista Político",
-      "description": "Site acadêmico de Rodrigo Martins: pesquisa, publicações, habilidades e contato.",
+      "description": "Rodrigo Martins da Silva é cientista político e pesquisador na USP e no INCT-Participa. Estuda Judiciário, STF, justiça eleitoral e métodos quantitativos.",
       "social_description": "Pesquisa em instituições políticas, Judiciário, metodologia quantitativa e estimação de pontos ideais.",
       "og_type": "profile",
       "image": "home",
@@ -50,7 +98,7 @@
       "alternate": "/pt/",
       "default_url": "/pt/",
       "title": "Rodrigo Martins | Political Scientist",
-      "description": "Academic website of Rodrigo Martins: research, publications, skills and contact information.",
+      "description": "Rodrigo Martins da Silva is a political scientist at USP and INCT-Participa, studying courts, the STF, electoral justice and quantitative methods.",
       "social_description": "Research on political institutions, courts, quantitative methods and ideal point estimation.",
       "og_type": "profile",
       "image": "home",
@@ -280,6 +328,63 @@
       "image": "profile",
       "twitter_card": "summary",
       "sitemap_priority": "0.6"
+    }
+  ],
+  "redirects": [
+    {
+      "file": "authors/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "authors/admin/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "authors/page/1/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "categories/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "categories/page/1/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "post/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "post/page/1/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "publication/index.html",
+      "target": "/pt/#publicacoes",
+      "canonical": "/pt/"
+    },
+    {
+      "file": "publication_types/index.html",
+      "target": "/pt/#publicacoes",
+      "canonical": "/pt/"
+    },
+    {
+      "file": "publication_types/page/1/index.html",
+      "target": "/pt/#publicacoes",
+      "canonical": "/pt/"
+    },
+    {
+      "file": "tags/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "tags/page/1/index.html",
+      "target": "/pt/"
+    },
+    {
+      "file": "talk/index.html",
+      "target": "/pt/"
     }
   ]
 }
